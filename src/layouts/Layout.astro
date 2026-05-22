@@ -1,20 +1,133 @@
 ---
 interface Props {
   title: string;
+  description?: string;
 }
-const { title } = Astro.props;
+const { title, description = 'CaribeVIP - Paquetes de viaje todo incluido a San Andrés, Santa Marta, Aruba, México y más. Salidas desde Cali y Medellín. Tiquetes, alojamiento, tours y asistencia médica.' } = Astro.props;
+const siteUrl = 'https://caribe-vip-web.caribevip-travel.workers.dev';
+const ogImage = `${siteUrl}/og-image.jpg`;
 ---
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="CaribeVIP - Tu agencia de viajes. Paquetes todo incluido a San Andrés, Santa Marta, Aruba, México y más. Salidas desde Cali y Medellín." />
+    <meta name="description" content={description} />
+    <meta name="keywords" content="viajes, paquetes turísticos, San Andrés, Santa Marta, Aruba, México, todo incluido, agencia de viajes, Cali, Medellín, Colombia, CaribeVIP" />
+    <meta name="author" content="CaribeVIP" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={siteUrl} />
+
+    <!-- Open Graph (Facebook, WhatsApp) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="CaribeVIP" />
+    <meta property="og:locale" content="es_CO" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <title>{title}</title>
+
+    <!-- Schema.org JSON-LD: Travel Agency -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "TravelAgency",
+      "name": "CaribeVIP",
+      "description": "Agencia de viajes con paquetes todo incluido a destinos del Caribe y más. Salidas desde Cali y Medellín.",
+      "url": siteUrl,
+      "telephone": "+573104101184",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "CO"
+      },
+      "areaServed": ["Colombia"],
+      "priceRange": "$$",
+      "sameAs": []
+    })} />
+
+    <!-- Schema.org JSON-LD: Product Offers -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Paquetes de viaje CaribeVIP",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "TouristTrip",
+            "name": "San Andrés - 5 días / 4 noches",
+            "description": "Paquete todo incluido desde Cali. Tiquetes LATAM, alojamiento, desayuno, tours y asistencia médica.",
+            "touristType": "Beach",
+            "offers": {
+              "@type": "Offer",
+              "price": "1220000",
+              "priceCurrency": "COP",
+              "availability": "https://schema.org/InStock"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "TouristTrip",
+            "name": "Santa Marta - 4 días / 3 noches",
+            "description": "Paquete desde Cali con tiquetes, traslados, alojamiento, alimentación y tour Playa Blanca.",
+            "touristType": "Beach",
+            "offers": {
+              "@type": "Offer",
+              "price": "999000",
+              "priceCurrency": "COP",
+              "availability": "https://schema.org/InStock"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "TouristTrip",
+            "name": "México + Grutas de Tolantongo - 5 días / 4 noches",
+            "description": "Semana de receso. Tiquetes AVIANCA, hotel, desayunos, tours por Ciudad de México, Teotihuacán y Grutas de Tolantongo.",
+            "touristType": "Cultural",
+            "offers": {
+              "@type": "Offer",
+              "price": "4399000",
+              "priceCurrency": "COP",
+              "availability": "https://schema.org/InStock"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "TouristTrip",
+            "name": "Aruba Happy Island - Todo incluido",
+            "description": "Desde Medellín con Wingo. Hotel Coconut Inn, todas las comidas, traslados y tours incluidos.",
+            "touristType": "Beach",
+            "offers": {
+              "@type": "Offer",
+              "price": "4860000",
+              "priceCurrency": "COP",
+              "availability": "https://schema.org/InStock"
+            }
+          }
+        }
+      ]
+    })} />
   </head>
   <body class="font-body bg-white text-gray-800">
     <slot />

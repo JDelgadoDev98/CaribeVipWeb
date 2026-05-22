@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://caribe-vip-web.caribevip-travel.workers.dev/sitemap.xml
