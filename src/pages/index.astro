@@ -3,15 +3,19 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import PackageCard from '../components/PackageCard.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import ClientGallery from '../components/ClientGallery.astro';
+import FAQ from '../components/FAQ.astro';
 import Footer from '../components/Footer.astro';
 ---
 
 <Layout title="CaribeVIP - Paquetes de viaje todo incluido | Agencia de Viajes">
   <Header />
   <Hero />
+  <HowItWorks />
 
   <!-- Destinos Nacionales -->
-  <section id="nacionales" class="bg-[#0a1628] py-16">
+  <section id="nacionales" class="bg-[#0a1628]/70 py-16">
     <div class="max-w-7xl mx-auto px-4">
       <div class="flex items-center gap-3 mb-8">
         <div class="h-px flex-1 bg-gradient-to-r from-transparent to-sky-500/30"></div>
@@ -26,50 +30,112 @@ import Footer from '../components/Footer.astro';
         <PackageCard
           destination="San Andrés"
           origin="Cali"
-          duration="5 días / 4 noches"
-          price="$1.220.000"
-          dates="Junio 21 al 25"
+          duration="4-5 días / 3-4 noches"
+          price="$1.250.000"
+          priceLabel="Desde"
+          dates="Consulta fechas disponibles"
           badge="Popular"
-          image="https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=600&h=400&fit=crop"
+          image="/images/san-andres.jpg"
+          slug="san-andres"
           includes={[
-            'Tiquetes aéreos LATAM',
-            'Morral 6 kg',
-            'Alojamiento 4 noches',
-            'Desayuno',
-            'Combo Tours',
-            'Asistencia médica'
+            'Tiquetes aéreos morral 8kg',
+            'Desayunos incluidos',
+            'Alojamiento hotel turista',
+            'Combo tours',
+            'Traslados aeropuerto',
+            'Seguro médico'
           ]}
           highlights={[
             'Vuelta a la isla',
-            'Acuario y Johnny Cay',
-            'Tour bahía'
+            'Tour por la bahía en yate',
+            'Acuario y Johnny Cay'
+          ]}
+        />
+
+        <PackageCard
+          destination="Cartagena"
+          origin="Cali"
+          duration="4-5 días / 3-4 noches"
+          price="$899.000"
+          priceLabel="Desde"
+          dates="Consulta fechas disponibles"
+          image="/images/cartagena.jpg"
+          slug="cartagena"
+          includes={[
+            'Tiquetes aéreos morral 8kg',
+            'Desayunos incluidos',
+            'Alojamiento hotel turista',
+            'Tour a Barú con almuerzo',
+            'Traslados aeropuerto',
+            'Seguro médico'
           ]}
         />
 
         <PackageCard
           destination="Santa Marta"
           origin="Cali"
-          duration="4 días / 3 noches"
-          price="$999.000"
+          duration="4-5 días / 3-4 noches"
+          price="$899.000"
           priceLabel="Desde"
-          dates="Junio y Julio — Múltiples fechas"
-          image="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&h=400&fit=crop"
+          dates="Consulta fechas disponibles"
+          image="/images/santa-marta.jpg"
+          slug="santa-marta"
           includes={[
-            'Tiquetes aéreos',
-            'Morral cabina 6 kg',
-            'Traslados In-Out',
-            'Alojamiento 3 noches',
-            'Alimentación según hotel',
-            'Tour Playa Blanca',
-            'Asistencia médica'
+            'Tiquetes aéreos morral 8kg',
+            'Desayunos incluidos',
+            'Alojamiento hotel turista',
+            'Tour Playa Blanca con almuerzo',
+            'Traslados aeropuerto',
+            'Seguro médico'
           ]}
         />
+
+        <!-- Card especial: Combinado Cartagena + Santa Marta -->
+        <a href="/destinos/cartagena-santa-marta" class="block h-full">
+          <article class="bg-[#0a1628] border border-gray-700/50 rounded-2xl overflow-hidden hover:border-sky-500/40 hover:shadow-lg hover:shadow-sky-500/5 transition-all duration-300 flex flex-col group cursor-pointer h-full">
+          <div class="relative h-48 md:h-56 overflow-hidden flex">
+            <img src="/images/cartagena.jpg" alt="Cartagena" class="w-1/2 h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+            <img src="/images/santa-marta.jpg" alt="Santa Marta" class="w-1/2 h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0a1628]/60 to-transparent"></div>
+            <span class="absolute top-3 left-3 bg-amber-500 text-gray-900 text-xs font-bold px-3 py-1 rounded-full uppercase">Combinado</span>
+            <div class="absolute top-3 right-3 bg-[#0a1628]/80 text-sky-400 text-xs font-semibold px-3 py-1 rounded-full backdrop-blur-sm">Desde Cali</div>
+          </div>
+          <div class="p-5 flex flex-col flex-1">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-display text-xl font-bold text-white">Cartagena + Santa Marta</h3>
+              <span class="text-xs bg-sky-500/10 text-sky-400 px-2 py-1 rounded-full font-medium">5 días / 4 noches</span>
+            </div>
+            <p class="text-sm text-gray-400 mb-3">Consulta fechas disponibles</p>
+            <div class="mb-4">
+              <span class="text-2xl font-extrabold text-amber-400">$1.650.000</span>
+              <span class="text-sm text-gray-400 ml-1">Desde</span>
+            </div>
+            <div class="mb-4 flex-1">
+              <p class="text-xs font-semibold text-gray-400 uppercase mb-2">Incluye:</p>
+              <ul class="grid grid-cols-2 gap-1">
+                {['Tiquetes aéreos morral 8kg', 'Desayunos incluidos', '2 noches en Cartagena', '2 noches en Santa Marta', 'Tour Barú con almuerzo', 'Chiva rumbera'].map((item) => (
+                  <li class="text-xs text-gray-300 flex items-center gap-1">
+                    <svg class="w-3 h-3 text-sky-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    {item}
+                  </li>
+                ))}
+                <li class="text-xs text-sky-400 font-medium">+5 más...</li>
+              </ul>
+            </div>
+            <div class="mt-auto text-center text-sky-400 text-sm font-medium group-hover:text-sky-300 transition-colors">
+              Ver detalles →
+            </div>
+          </div>
+          </article>
+        </a>
       </div>
     </div>
   </section>
 
   <!-- Destinos Internacionales -->
-  <section id="internacionales" class="bg-[#060e1a] py-16">
+  <section id="internacionales" class="bg-[#060e1a]/70 py-16">
     <div class="max-w-7xl mx-auto px-4">
       <div class="flex items-center gap-3 mb-8">
         <div class="h-px flex-1 bg-gradient-to-r from-transparent to-amber-500/30"></div>
@@ -78,58 +144,110 @@ import Footer from '../components/Footer.astro';
         </h2>
         <div class="h-px flex-1 bg-gradient-to-l from-transparent to-amber-500/30"></div>
       </div>
-      <p class="text-gray-400 text-center mb-10 max-w-lg mx-auto">Experiencias únicas fuera de Colombia. Todo incluido con acompañamiento completo.</p>
+      <p class="text-gray-400 text-center mb-10 max-w-lg mx-auto">Experiencias únicas fuera de Colombia. Acompañamiento 24 horas y asesoría migratoria.</p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <PackageCard
-          destination="México + Grutas de Tolantongo"
+          destination="Punta Cana"
           origin="Colombia"
-          duration="5 días / 4 noches"
-          price="$4.399.000"
-          priceLabel="Desde (múltiple)"
-          dates="Octubre 6 al 10, 2026 — Semana de receso"
-          badge="Internacional"
-          image="https://images.unsplash.com/photo-1518638150340-f706e86654de?w=600&h=400&fit=crop"
+          duration="4 días / 3 noches"
+          price="$2.999.000"
+          priceLabel="Desde por persona"
+          dates="Consulta fechas disponibles"
+          badge="Todo incluido"
+          image="/images/punta-cana.jpg"
+          slug="punta-cana"
           includes={[
-            'Tiquetes AVIANCA ida y regreso',
-            'Traslado aeropuerto-hotel',
-            '4 noches Hotel Estoril o similar',
-            '4 desayunos',
-            'Tour Ciudad de México',
-            'Basílica de Guadalupe',
-            'Pirámides de Teotihuacán',
-            'Grutas de Tolantongo',
-            'Asistencia médica'
-          ]}
-          highlights={[
-            'Centro Histórico, Zócalo, Palacio Nacional',
-            'Ángel de la Independencia',
-            'Separa con $500.000'
+            'Tiquetes aéreos + equipaje',
+            'Hotel todo incluido 3 noches',
+            'Desayuno, almuerzo y cena buffet',
+            'Snacks y bar abierto',
+            'Piscinas y diversión sin límite',
+            'Seguro médico internacional',
+            'Traslados aeropuerto',
+            'Asesoría migratoria 24h'
           ]}
         />
 
         <PackageCard
-          destination="Aruba — Happy Island"
-          origin="Medellín"
-          duration="5 días / 4 noches"
-          price="$4.860.000"
-          priceLabel="Desde (doble)"
-          dates="Bloqueos 2026-2027 — Múltiples fechas"
+          destination="Cancún"
+          origin="Colombia"
+          duration="4 días / 3 noches"
+          price="$2.899.000"
+          priceLabel="Desde por persona"
+          dates="Consulta fechas disponibles"
           badge="Todo incluido"
-          image="https://images.unsplash.com/photo-1548574505-5e239809ee19?w=600&h=400&fit=crop"
+          image="/images/cancun.jpg"
+          slug="cancun"
           includes={[
-            'Tiquetes Wingo ida y regreso',
-            'Hotel Coconut Inn 4 noches',
-            'Desayuno, almuerzo y cena',
-            'Traslado grupal',
-            'Asistencia médica de viaje',
-            'Tours incluidos'
+            'Tiquetes aéreos + equipaje',
+            'Hotel todo incluido 3 noches',
+            'Desayuno, almuerzo y cena buffet',
+            'Snacks y bar abierto',
+            'Piscinas y diversión sin límite',
+            'Seguro médico internacional',
+            'Traslados aeropuerto',
+            'Asesoría migratoria 24h'
           ]}
-          highlights={[
-            'Eagle Beach, Manchebo Beach',
-            'Faro California, Baby Beach',
-            'Natural Bridge, Murales San Nicolás',
-            'Niños desde $3.029.000'
+        />
+
+        <PackageCard
+          destination="Aruba"
+          origin="Colombia"
+          duration="4 días / 3 noches"
+          price="$3.550.000"
+          priceLabel="Desde por persona"
+          dates="Consulta fechas disponibles"
+          image="/images/aruba.jpg"
+          slug="aruba"
+          includes={[
+            'Tiquetes aéreos + equipaje',
+            'Hotel turista 3 noches',
+            'Desayunos incluidos',
+            'Seguro médico internacional',
+            'Traslados aeropuerto',
+            'Asesoría migratoria 24h'
+          ]}
+        />
+
+        <PackageCard
+          destination="Curazao"
+          origin="Colombia"
+          duration="4 días / 3 noches"
+          price="$3.750.000"
+          priceLabel="Desde por persona"
+          dates="Consulta fechas disponibles"
+          badge="Todo incluido"
+          image="/images/curazao.jpg"
+          slug="curazao"
+          includes={[
+            'Tiquetes aéreos + equipaje',
+            'Hotel todo incluido 3 noches',
+            'Desayuno, almuerzo y cena buffet',
+            'Snacks y bar abierto',
+            'Piscinas y diversión sin límite',
+            'Seguro médico internacional',
+            'Traslados aeropuerto',
+            'Asesoría migratoria 24h'
+          ]}
+        />
+
+        <PackageCard
+          destination="Jamaica"
+          origin="Colombia"
+          duration="4 días / 3 noches"
+          price="$3.550.000"
+          priceLabel="Desde por persona"
+          dates="Consulta fechas disponibles"
+          image="/images/jamaica.jpg"
+          slug="jamaica"
+          includes={[
+            'Tiquetes aéreos + equipaje',
+            'Hotel turista 3 noches',
+            'Desayunos incluidos',
+            'Seguro médico internacional',
+            'Traslados aeropuerto',
+            'Asesoría migratoria 24h'
           ]}
         />
       </div>
@@ -137,7 +255,7 @@ import Footer from '../components/Footer.astro';
   </section>
 
   <!-- Nosotros -->
-  <section id="nosotros" class="bg-[#0a1628] py-16">
+  <section id="nosotros" class="bg-[#0a1628]/70 py-16">
     <div class="max-w-7xl mx-auto px-4">
       <div class="text-center mb-10">
         <h2 class="font-display text-2xl md:text-3xl font-bold text-white mb-3">¿Por qué <span class="text-sky-400">CaribeVIP</span>?</h2>
@@ -173,6 +291,10 @@ import Footer from '../components/Footer.astro';
       </div>
     </div>
   </section>
+
+  <ClientGallery />
+
+  <FAQ />
 
   <Footer />
 </Layout>

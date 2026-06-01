@@ -1,0 +1,80 @@
+---
+const images = [
+  '/images/clientGalery/IMG_20220517_110144.jpg',
+  '/images/clientGalery/IMG_20220709_164017.jpg',
+  '/images/clientGalery/IMG_20221019_120359.jpg',
+  '/images/clientGalery/IMG_20250710_100922877_AE.jpg',
+  '/images/clientGalery/IMG_20250710_174144349_HDR_AE.jpg',
+];
+---
+<section class="bg-[#060e1a] py-16 border-t border-gray-800/50">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="text-center mb-10">
+      <h2 class="font-display text-2xl md:text-3xl font-bold text-white mb-3">Nuestros <span class="text-amber-400">viajeros</span></h2>
+      <p class="text-gray-400">Momentos reales de quienes ya viajaron con CaribeVIP</p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+      {images.map((src, i) => (
+        <div class="relative aspect-square rounded-xl overflow-hidden group cursor-pointer gallery-thumb" data-src={src}>
+          <img
+            src={src}
+            alt={`Viajero CaribeVIP ${i + 1}`}
+            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+            </svg>
+          </div>
+        </div>
+      ))}
+    </div>
+    <p class="text-center text-gray-500 text-sm mt-6">¿Quieres ser el próximo? Escríbenos y planificamos tu viaje.</p>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm hidden items-center justify-center p-4">
+    <button id="lightbox-close" class="absolute top-4 right-4 text-white hover:text-gray-300 z-10">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+    <img id="lightbox-img" src="" alt="Foto ampliada" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl" />
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+    const lightboxClose = document.getElementById('lightbox-close');
+    const thumbs = document.querySelectorAll('.gallery-thumb');
+
+    thumbs.forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        const src = thumb.getAttribute('data-src');
+        if (src && lightboxImg && lightbox) {
+          lightboxImg.src = src;
+          lightbox.classList.remove('hidden');
+          lightbox.classList.add('flex');
+        }
+      });
+    });
+
+    const closeLightbox = () => {
+      if (lightbox) {
+        lightbox.classList.add('hidden');
+        lightbox.classList.remove('flex');
+      }
+    };
+
+    lightboxClose?.addEventListener('click', closeLightbox);
+    lightbox?.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  });
+</script>

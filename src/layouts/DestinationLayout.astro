@@ -1,0 +1,137 @@
+---
+import Layout from './Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  destination: string;
+  origin: string;
+  duration: string;
+  price: string;
+  priceLabel?: string;
+  image: string;
+  includes: string[];
+  notIncludes?: string[];
+  highlights?: string[];
+  description: string;
+  type: 'nacional' | 'internacional';
+}
+
+const { title, destination, origin, duration, price, priceLabel = 'Por persona', image, includes, notIncludes = [], highlights = [], description, type } = Astro.props;
+const whatsappMsg = encodeURIComponent(`Hola CaribeVIP, quiero reservar el paquete a ${destination}`);
+---
+<Layout title={`${destination} - CaribeVIP | Paquete de viaje`} description={description}>
+  <Header />
+
+  <!-- Hero del destino -->
+  <section class="relative h-[40vh] md:h-[50vh] overflow-hidden">
+    <img src={image} alt={destination} class="w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-gradient-to-t from-[#060e1a] via-[#060e1a]/50 to-transparent"></div>
+    <div class="absolute bottom-0 left-0 right-0 p-6 md:p-12">
+      <div class="max-w-5xl mx-auto">
+        <span class="inline-block bg-sky-500/20 text-sky-400 text-xs font-bold px-3 py-1 rounded-full mb-3 backdrop-blur-sm border border-sky-500/30">
+          {type === 'nacional' ? '🇨🇴 Nacional' : '✈️ Internacional'} · {duration}
+        </span>
+        <h1 class="font-display text-3xl md:text-5xl font-extrabold text-white mb-2">{destination}</h1>
+        <p class="text-gray-300 text-sm md:text-base">Desde {origin}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contenido -->
+  <section class="bg-[#060e1a] py-12">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <!-- Info principal -->
+        <div class="lg:col-span-2 space-y-8">
+          <div>
+            <h2 class="font-display text-xl font-bold text-white mb-3">Sobre este paquete</h2>
+            <p class="text-gray-400 leading-relaxed">{description}</p>
+          </div>
+
+          <div>
+            <h2 class="font-display text-xl font-bold text-white mb-4">✅ ¿Qué incluye?</h2>
+            <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {includes.map((item) => (
+                <li class="flex items-start gap-2 text-gray-300">
+                  <svg class="w-5 h-5 text-sky-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  <span class="text-sm">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {notIncludes.length > 0 && (
+            <div>
+              <h2 class="font-display text-xl font-bold text-white mb-4">❌ No incluye</h2>
+              <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {notIncludes.map((item) => (
+                  <li class="flex items-start gap-2 text-gray-400">
+                    <svg class="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-sm">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {highlights.length > 0 && (
+            <div class="bg-amber-500/10 border border-amber-500/20 rounded-xl p-5">
+              <h2 class="font-display text-lg font-bold text-amber-400 mb-3">⭐ Destacados del viaje</h2>
+              <ul class="space-y-2">
+                {highlights.map((h) => (
+                  <li class="text-sm text-gray-300 flex items-center gap-2">
+                    <span class="text-amber-400">•</span> {h}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+
+        <!-- Sidebar de precio y CTA -->
+        <div class="lg:col-span-1">
+          <div class="sticky top-28 bg-[#0a1628] border border-gray-700/50 rounded-2xl p-6 space-y-5">
+            <div>
+              <p class="text-gray-400 text-sm mb-1">{priceLabel}</p>
+              <p class="text-3xl font-extrabold text-amber-400">{price}</p>
+            </div>
+            <div class="space-y-2 text-sm text-gray-400">
+              <div class="flex justify-between">
+                <span>Duración</span>
+                <span class="text-white font-medium">{duration}</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Salida</span>
+                <span class="text-white font-medium">{origin}</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Separación</span>
+                <span class="text-white font-medium">30% del total</span>
+              </div>
+            </div>
+            <a
+              href={`https://wa.me/573052952608?text=${whatsappMsg}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block text-center bg-green-500 hover:bg-green-400 text-white font-bold py-4 rounded-xl transition-colors text-lg"
+            >
+              Reservar por WhatsApp
+            </a>
+            <a href="/" class="block text-center text-sky-400 hover:text-sky-300 text-sm transition-colors">
+              ← Volver a todos los paquetes
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
